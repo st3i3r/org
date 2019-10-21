@@ -9,3 +9,14 @@ c:\users\elliot alderson\documents\visual studio 2015\Projects\WindowsFormsAppli
 c:\users\elliot alderson\documents\visual studio 2015\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Form1.resources
 c:\users\elliot alderson\documents\visual studio 2015\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Sale.resources
 c:\users\elliot alderson\documents\visual studio 2015\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\Alina.csprojResolveAssemblyReference.cache
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\Alina.csprojResolveAssemblyReference.cache
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Form1.resources
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Home.resources
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Sale.resources
+C:\Users\Elliot Alderson\Documents\Visual Studio 2015\Projects\Progg\WindowsFormsApplication2\obj\Debug\Alina.csproj.GenerateResource.Cache

@@ -52,7 +52,7 @@ namespace WindowsFormsApplication2
                 OleDbConnection conn = new OleDbConnection(connstr);
                 conn.Open();
 
-                MessageBox.Show("Connection opened successfully.");
+                //MessageBox.Show("Connection opened successfully.");
                 cmbSheet.DataSource = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
                 cmbSheet.DisplayMember = "TABLE_NAME";
                 cmbSheet.ValueMember = "TABLE_NAME";

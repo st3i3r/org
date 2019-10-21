@@ -18,7 +18,7 @@ namespace WindowsFormsApplication2
         private static Sale _sale;
 
         private static List<Product> ProductList = new List<Product>();
-
+        private static List<Product> CartList = new List<Product>();
 
         //Create instance for UserControl
         public static Sale Instance
@@ -37,7 +37,6 @@ namespace WindowsFormsApplication2
         public Sale()
         {
             InitializeComponent();
-            ProductList = new List<Product>();
 
 
         }
@@ -59,7 +58,7 @@ namespace WindowsFormsApplication2
                 OleDbConnection conn = new OleDbConnection(connstr);
                 conn.Open();
 
-                MessageBox.Show("Connection opened successfully.");
+                //MessageBox.Show("Connection opened successfully.");
 
                 cmbSheetProduct.DataSource = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
                 cmbSheetProduct.DisplayMember = "TABLE_NAME";
@@ -80,22 +79,30 @@ namespace WindowsFormsApplication2
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 DataRow drow = data.Rows[i];
+                try
+                {
+                    int _code = Int32.Parse(drow["code"].ToString());
+                    String _product = drow["product"].ToString();
+                    int _quantity = Int32.Parse(drow["quantity"].ToString());
 
-                int _code = Int32.Parse(drow["code"].ToString());
-                String _product = drow["product"].ToString();
-                int  _quantity = Int32.Parse(drow["quantity"].ToString());
+
+                    ListViewItem item = new ListViewItem(_code.ToString());
+                    item.SubItems.Add(_product);
+                    item.SubItems.Add(_quantity.ToString());
 
 
-                ListViewItem item = new ListViewItem(_code.ToString());
-                item.SubItems.Add(_product);
-                item.SubItems.Add(_quantity.ToString());
-                
+                    listViewProduct.Items.Add(item);
 
-                listViewProduct.Items.Add(item);
-                
-                ProductList.Add(new Product() { code = (int)_code, product = _product, quantity = (int)_quantity });
-          }
 
+                    ProductList.Add(new Product() { code = (int)_code, product = _product, quantity = (int)_quantity });
+
+                    
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
 
         private void btBuy_Click(object sender, EventArgs e)
@@ -159,20 +166,88 @@ namespace WindowsFormsApplication2
         private void btAddToCart_Click(object sender, EventArgs e)
         {
             try
-            {
-                int _quantity = 0;
+            {         
+
                 ListView.SelectedIndexCollection indices = listViewProduct.SelectedIndices;
                 if (indices.Count > 0)
                 {
                     int _code = ProductList[indices[0]].code;
                     String _product = ProductList[indices[0]].product;
-                    
 
-                    ListViewItem item = new ListViewItem(_code.ToString());
-                    item.SubItems.Add(_product);
-                    item.SubItems.Add((++_quantity).ToString());
 
-                    listViewCart.Items.Add(item);
+                    //"Loop through product list to check quantity = 0"
+
+                    for (int i = 0; i < ProductList.Count; i++)
+                    {
+                        
+                        if ( _code == ProductList[i].code & _product == ProductList[i].product )
+                        {
+                            Product _tmp = ProductList[i];
+                            _tmp.OutOfStock += OutOfStockWarning;
+                            _tmp.CheckQuantity();
+
+
+                            if (!(_tmp.flag_OutOfStock))
+                            {
+                                int _quantity;
+                                bool _inCartList = false;
+
+                                //Update to CartList
+                                if (CartList.Count == 0)
+                                {
+                                    if (!_inCartList)
+                                    {
+                                        CartList.Add(new Product() { code = _code, product = _product, quantity = 1 });
+
+                                        ListViewItem item = new ListViewItem(_tmp.code.ToString());
+                                        item.SubItems.Add(_tmp.product);
+                                        item.SubItems.Add("1");
+
+                                        listViewCart.Items.Add(item);
+                                    }
+                                }
+                                else
+                                {
+                                    for (int j = 0; j < CartList.Count; j++)
+                                    {
+                                        if ( _code == CartList[j].code)
+                                        {
+                                            _inCartList = true;
+
+                                            _quantity = CartList[j].quantity;
+                                            //int _item_index = CartList.IndexOf(_tmp);
+                                            CartList[j].quantity += 1;
+
+                                            var _item = listViewCart.FindItemWithText(_code.ToString());
+
+                                            //listViewCart.Items[j].Selected = true;
+                                            //ListViewItem _selected_item = listViewCart.SelectedItems[0];
+                                            _item.SubItems[2].Text = (++_quantity).ToString();
+
+                                            break;
+                                        }
+
+                                    }
+                                    if (!_inCartList)
+                                    {
+                                        CartList.Add(new Product() { code = _code, product = _product, quantity = 1 });
+                                        _quantity = 0;
+
+                                        ListViewItem item = new ListViewItem(_tmp.code.ToString());
+                                        item.SubItems.Add(_tmp.product);
+                                        item.SubItems.Add((++_quantity).ToString());
+
+                                        listViewCart.Items.Add(item);
+                                    }
+                                }
+                               
+                            }
+
+                        }
+                    }
+
+
+
                 }
                 
             }
@@ -180,6 +255,13 @@ namespace WindowsFormsApplication2
             {
                 MessageBox.Show("(Add to cart) Error: ", ex.Message);
             }
+
+        }
+
+
+        static void OutOfStockWarning(object sender, ProductEventArgs e)
+        {
+            MessageBox.Show("Product " + e.Product + " out of stock");
         }
     }
 }
